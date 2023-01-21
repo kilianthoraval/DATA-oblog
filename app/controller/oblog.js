@@ -1,18 +1,15 @@
 const dataMapper = require("../model/datamapper");
 
 const oblogController = {
-    async getPost(req,res){
+    async getPosts(req,res){
    
         const allPost = await dataMapper.getAllPost();
 
         if (allPost) {
-            // je passe les valeurs à ma vue vie les locals
-            res.locals.brands = allPost;
-
-            res.render("brands");
+            res.json(allPost);
         }
         else {
-            res.render("500");
+            res.json("500");
         }
     },
     
@@ -21,14 +18,32 @@ const oblogController = {
         const allCategories = await dataMapper.getAllCategories();
 
         if (allCategories) {
-            // je passe les valeurs à ma vue vie les locals
-            res.locals.brands = allCategories;
-
-            res.render("brands");
+            res.json(allCategories);
         }
         else {
-            res.render("500");
+            res.json("500");
         }
+    },
+
+    async getPost(req,res){
+        const idRegex = new RegExp ('^[0-9]+$');
+        const postID = req.params.id;
+        console.log(postID);
+        if (idRegex.test(postID)){
+            console.log("id ok");
+            const post = await dataMapper.getPostById(postID);
+            if (post){
+                res.json(post[0]);
+            }
+            else {
+                console.log("post introuvable");
+                res.json("500");
+            }
+        }
+        else {
+            console.log("invalide id");
+            res.json("500");
+        }               
     }
 };
 module.exports = oblogController;
