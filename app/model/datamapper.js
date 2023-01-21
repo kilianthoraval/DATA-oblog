@@ -39,6 +39,25 @@ const dataMapper = {
             console.error(error);
             return null;
         }
+    },
+    async insertPost(post){
+        const sqlQuery = "INSERT INTO article(category,slug,title,excerpt,content) VALUES ($1,$2,$3,$4,$5)";
+
+        try {
+            const values = [];
+            for (let i in post){
+                values.push(post[i])
+            }
+            // const values = [category,slug,title,excerpt,content];
+            console.log(values);
+            await client.query(sqlQuery,values);
+
+            return true
+        }
+        catch (error) {
+            // console.error(error);
+            return false;
+        }
     }
 
 };

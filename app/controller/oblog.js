@@ -44,6 +44,23 @@ const oblogController = {
             console.log("invalide id");
             res.json("500");
         }               
+    },
+
+    async insertPost(req,res){
+        const post = req.body;
+        console.log(post);
+        // const category = post ["category"];
+        // const slug = post ["slug"];
+        // const title = post ["title"];
+        // const excerpt = post ["excerpt"];
+        // const content = post ["content"];
+        const isSuccess = await dataMapper.insertPost(post);
+        if (isSuccess){
+            res.status(200).json({})
+        }
+        else {
+            res.status(500).json({})
+        }
     }
 };
 module.exports = oblogController;
