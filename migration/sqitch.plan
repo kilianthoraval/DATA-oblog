@@ -1,0 +1,4 @@
+%syntax-version=1.0.0
+%project=oblog
+
+1.create_table 2023-01-19T14:34:37Z Etudiant O'clock <student@teleporter> # script de création des tables
